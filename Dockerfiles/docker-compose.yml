@@ -1,0 +1,32 @@
+version: "2"
+services:
+    web:
+      build:
+        context: ./
+        dockerfile: Dockerfile     
+      links:
+      - db
+      labels:
+        - "traefik.port=80"
+        - "traefik.backend=hello"
+        - "traefik.frontend.rule=Host:hello.docker"
+    db:
+       build:
+         context: ./
+         dockerfile: DockerfileDB
+       volumes:
+       - "./data:/var/lib/mysql"
+       environment: 
+         MYSQL_ROOT_PASSWORD: password
+         MYSQL_USER: user
+         MYSQL_PASSWORD: password
+         MYSQL_DATABASE: db_test
+    traefik:
+       image: containous/traefik:experimental
+       command: --web --docker --logLevel=DEBUG
+       ports:
+         - "80:80"
+         - "8080:8080"
+       volumes:
+         - "/var/run/docker.sock:/var/run/docker.sock"
+         - "$PWD/traefik.yml:/traefik.toml"
