@@ -5,4 +5,4 @@ MAINTAINER Jonathan garcia <jonathan.garcia@corellis.eu>
 # In ADD we type the local of sql dump file to add in container
 # And docker-entrypoint-initdb.d do the dump on database within container
 ADD init.sql /docker-entrypoint-initdb.d/init.sql
-RUN mdkdir ../data
+RUN mkdir ../data
