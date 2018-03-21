@@ -1,0 +1,23 @@
+version: "2"
+services:
+    web:
+      container_name: CorellisPHP5.6-Apache
+      build: .
+      ports:
+      - "8889:80"
+      volumes:
+      - "./www:/var/www/html"
+      links:
+      - db
+    db:
+       container_name: CorellisMySQL
+       build:
+         context: ./
+         dockerfile: DockerfileDB
+       volumes:
+       - "./data:/var/lib/mysql"
+       environment: 
+         MYSQL_ROOT_PASSWORD: password
+         MYSQL_USER: user
+         MYSQL_PASSWORD: password
+         MYSQL_DATABASE: db_test
