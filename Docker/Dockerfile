@@ -4,4 +4,4 @@ MAINTAINER Jonathan garcia <jonathan.garcia@corellis.eu>
 # The RUN allows to execute commands within the container, the docker-php-ext-install installs PHP extensions within the container.
 # You can also add after other extensions desired.
 RUN docker-php-ext-install mysql mysqli pdo pdo_mysql
-COPY . /var/www/html/
+COPY ./* /var/www/html/
